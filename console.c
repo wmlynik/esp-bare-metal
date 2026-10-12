@@ -11,12 +11,12 @@ void console() {
         char c;
         char cmd[CMD_MAX];
         uint32_t i = 0;
-        while(1) {
+        while(i < CMD_MAX) {
             c = uart_getc();
             cmd[i++] = c;
             if(c == '\n' || c == '\r') break;
             uart_putc(c);
-        } while(c != '\n' && c != '\r');
+        }
         uart_putc('\n');
     }
 }
