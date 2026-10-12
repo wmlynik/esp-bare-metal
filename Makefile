@@ -5,6 +5,8 @@ CC := $(ESP_BIN)xtensa-esp32s3-elf-gcc
 OBJCOPY := $(ESP_BIN)xtensa-esp32s3-elf-objcopy
 OBJDUMP := $(ESP_BIN)xtensa-esp32s3-elf-objdump
 
+ESPTOOL := ~/.espressif/tools/python/v6.1/venv/bin/esptool
+
 CFLAGS := \
 	-mlongcalls \
 	-mabi=call0 \
@@ -55,7 +57,7 @@ console.o: console.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(TARGET).bin: $(TARGET).elf
-	esptool --chip esp32s3 elf2image --flash-mode dio --flash-freq 40m --flash-size 16MB $<
+	$(ESPTOOL) --chip esp32s3 elf2image --flash-mode dio --flash-freq 40m --flash-size 16MB $<
 
 disasm: $(TARGET).elf
 	$(OBJDUMP) -d -S $<
